@@ -12,24 +12,26 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux"; // Redux hooks
-import { toggleFavorite } from "../redux/favoritesSlice"; // Redux action
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../redux/favoritesSlice";
 
 export default function RecipeDetailScreen(props) {
-  const recipe = props.route.params; // recipe passed from previous screen
+  const recipeParam = props.route.params; // from navigation
+  const recipe = recipeParam.item ? recipeParam.item : recipeParam; // normalize
 
   const dispatch = useDispatch();
   const favoriterecipes = useSelector(
     (state) => state.favorites.favoriterecipes
   );
+
   const isFavourite = favoriterecipes?.some(
     (favrecipe) => favrecipe.idFood === recipe.idFood
-  ); // Check by idrecipe
+  );
 
   const navigation = useNavigation();
 
   const handleToggleFavorite = () => {
-    dispatch(toggleFavorite(recipe)); // Dispatch the recipe to favorites
+    dispatch(toggleFavorite(recipe));
   };
 
   return (
@@ -38,15 +40,15 @@ export default function RecipeDetailScreen(props) {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollContent}
     >
-      {/* recipe Image */}
+      {/* Recipe Image */}
       <View style={styles.imageContainer} testID="imageContainer">
         <Image
-          source={{ uri: recipe.item.recipeImage }}
+          source={{ uri: recipe.recipeImage }}
           style={styles.recipeImage}
         />
       </View>
 
-      {/* Back Button and Favorite Button */}
+      {/* Back & Favorite Buttons */}
       <View style={styles.topButtonsContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -56,32 +58,26 @@ export default function RecipeDetailScreen(props) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleToggleFavorite}
-          style={[
-            styles.favoriteButton,
-            {
-              backgroundColor: "white",
-            },
-          ]}
+          style={[styles.favoriteButton, { backgroundColor: "white" }]}
         >
           <Text>{isFavourite ? "♥" : "♡"}</Text>
         </TouchableOpacity>
       </View>
 
-      {/* recipe Description */}
-
+      {/* Recipe Details */}
       <View style={styles.contentContainer}>
-        {/* Title and Category */}
         <View
           style={styles.recipeDetailsContainer}
           testID="recipeDetailsContainer"
         >
           <Text style={styles.recipeTitle} testID="recipeTitle">
-            {recipe.item.recipeName}
+            {recipe.recipeName}
           </Text>
           <Text style={styles.recipeCategory} testID="recipeCategory">
-            {recipe.item.recipeCategory}
+            {recipe.recipeCategory}
           </Text>
         </View>
+
         <View style={styles.miscContainer} testID="miscContainer">
           <Text>⏱️ 30 mins</Text>
           <Text>🍽️ 4 servings</Text>
@@ -92,7 +88,7 @@ export default function RecipeDetailScreen(props) {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Ingredients</Text>
           <View testID="ingredientsList">
-            {recipe.item.ingredients?.map((ingredient, index) => (
+            {recipe.ingredients?.map((ingredient, index) => (
               <View key={index} style={styles.ingredientItem}>
                 <Text>
                   {ingredient.ingredientName}: {ingredient.measure}
@@ -103,23 +99,12 @@ export default function RecipeDetailScreen(props) {
         </View>
 
         {/* Instructions */}
-        <View style={styles.sectionContainer} testID="sectionContainer">
+        <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Instructions</Text>
           <Text style={styles.instructionsText}>
-            {recipe.item.recipeInstructions}
+            {recipe.recipeInstructions}
           </Text>
-          <Text style={styles.sectionTitle}>Ingredients</Text>
-          <View testID="ingredientsList">
-            {recipe.item.ingredients?.map((ingredient, index) => (
-              <View key={index} style={styles.ingredientItem}>
-                <Text>
-                  {ingredient.ingredientName}: {ingredient.measure}
-                </Text>
-              </View>
-            ))}
-          </View>
         </View>
-        {/* Description */}
       </View>
     </ScrollView>
   );

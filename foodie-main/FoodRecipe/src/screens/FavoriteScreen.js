@@ -21,9 +21,7 @@ export default function FavoriteScreen() {
   const favoriteRecipes = useSelector((state) => state.favorites);
   const favoriteRecipesList = favoriteRecipes?.favoriterecipes || [];
   console.log(favoriteRecipes.favoriterecipes);
-  console.log('favoriteRecipesList',favoriteRecipesList);
-  
-  
+  console.log("favoriteRecipesList", favoriteRecipesList);
 
   if (favoriteRecipesList.length === 0) {
     return (
@@ -48,7 +46,7 @@ export default function FavoriteScreen() {
   }
 
   return (
-    <>
+    <View style={{ flex: 1 }}>
       {/* Heading */}
       <View testID="FavoriteRecipes">
         <Text
@@ -58,7 +56,7 @@ export default function FavoriteScreen() {
           My Favorite Recipes
         </Text>
       </View>
-    
+
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{
@@ -73,8 +71,30 @@ export default function FavoriteScreen() {
       >
         <Text style={{ color: "#fff" }}>Go back</Text>
       </TouchableOpacity>
-    
-    </>
+
+      <FlatList
+        data={favoriteRecipesList}
+        contentContainerStyle={styles.listContainer}
+        keyExtractor={(item) => item.idFood.toString()}
+        numColumns={2}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.recipeCard}
+            onPress={() => navigation.navigate("RecipeDetail", { item })}
+          >
+            <Image
+              source={{ uri: item.recipeImage }}
+              style={styles.recipeImage}
+            />
+            <Text style={styles.recipeTitle} numberOfLines={1}>
+              {item.recipeName.length > 20
+                ? item.recipeName.substring(0, 20) + "..."
+                : item.recipeName}
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
   );
 }
 
@@ -103,6 +123,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     flexDirection: "row",
+    alignItems: "center",
+  },
+  recipeCard: {
+    flex: 1,
+    margin: 10,
     alignItems: "center",
   },
   recipeImage: {
