@@ -1,4 +1,11 @@
-import {View,Text,ScrollView,TouchableOpacity,Image,StyleSheet,} from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from "react-native";
 import React from "react";
 import {
   widthPercentageToDP as wp,
@@ -33,7 +40,10 @@ export default function RecipeDetailScreen(props) {
     >
       {/* recipe Image */}
       <View style={styles.imageContainer} testID="imageContainer">
-     
+        <Image
+          source={{ uri: recipe.item.recipeImage }}
+          style={styles.recipeImage}
+        />
       </View>
 
       {/* Back Button and Favorite Button */}
@@ -58,36 +68,59 @@ export default function RecipeDetailScreen(props) {
       </View>
 
       {/* recipe Description */}
-  
-        <View style={styles.contentContainer}>
-          {/* Title and Category */}
-          <View
-            style={styles.recipeDetailsContainer}
-            testID="recipeDetailsContainer"
-          >
-            <Text style={styles.recipeTitle} testID="recipeTitle">
-         
-              
-              </Text>
-            <Text style={styles.recipeCategory} testID="recipeCategory">
-              </Text>
+
+      <View style={styles.contentContainer}>
+        {/* Title and Category */}
+        <View
+          style={styles.recipeDetailsContainer}
+          testID="recipeDetailsContainer"
+        >
+          <Text style={styles.recipeTitle} testID="recipeTitle">
+            {recipe.item.recipeName}
+          </Text>
+          <Text style={styles.recipeCategory} testID="recipeCategory">
+            {recipe.item.recipeCategory}
+          </Text>
+        </View>
+        <View style={styles.miscContainer} testID="miscContainer">
+          <Text>⏱️ 30 mins</Text>
+          <Text>🍽️ 4 servings</Text>
+          <Text>🔥 250 cal</Text>
+        </View>
+
+        {/* Ingredients */}
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Ingredients</Text>
+          <View testID="ingredientsList">
+            {recipe.item.ingredients?.map((ingredient, index) => (
+              <View key={index} style={styles.ingredientItem}>
+                <Text>
+                  {ingredient.ingredientName}: {ingredient.measure}
+                </Text>
+              </View>
+            ))}
           </View>
-          <View style={styles.miscContainer} testID="miscContainer">
-        
-      </View>
-
-      {/* Ingredients */}
-      <View style={styles.sectionContainer}>
-     
-      </View>
-
-      {/* Instructions */}
-      <View style={styles.sectionContainer} testID="sectionContainer">
-        
         </View>
-          {/* Description */}
-         
+
+        {/* Instructions */}
+        <View style={styles.sectionContainer} testID="sectionContainer">
+          <Text style={styles.sectionTitle}>Instructions</Text>
+          <Text style={styles.instructionsText}>
+            {recipe.item.recipeInstructions}
+          </Text>
+          <Text style={styles.sectionTitle}>Ingredients</Text>
+          <View testID="ingredientsList">
+            {recipe.item.ingredients?.map((ingredient, index) => (
+              <View key={index} style={styles.ingredientItem}>
+                <Text>
+                  {ingredient.ingredientName}: {ingredient.measure}
+                </Text>
+              </View>
+            ))}
+          </View>
         </View>
+        {/* Description */}
+      </View>
     </ScrollView>
   );
 }
