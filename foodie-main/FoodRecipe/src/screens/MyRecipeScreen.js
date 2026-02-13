@@ -132,7 +132,6 @@ export default function MyRecipeScreen() {
               : ""}
           </Text>
 
-          {/* Edit/Delete buttons */}
           <View
             style={styles.actionButtonsContainer}
             testID="editDeleteButtons"

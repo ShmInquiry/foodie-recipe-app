@@ -40,7 +40,6 @@ export default function RecipeDetailScreen(props) {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollContent}
     >
-      {/* Recipe Image */}
       <View style={styles.imageContainer} testID="imageContainer">
         <Image
           source={{ uri: recipe.recipeImage }}
@@ -48,7 +47,6 @@ export default function RecipeDetailScreen(props) {
         />
       </View>
 
-      {/* Back & Favorite Buttons */}
       <View style={styles.topButtonsContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -64,7 +62,6 @@ export default function RecipeDetailScreen(props) {
         </TouchableOpacity>
       </View>
 
-      {/* Recipe Details */}
       <View style={styles.contentContainer}>
         <View
           style={styles.recipeDetailsContainer}
@@ -85,7 +82,6 @@ export default function RecipeDetailScreen(props) {
           <Text>🎚️ medium</Text>
         </View>
 
-        {/* Ingredients */}
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Ingredients</Text>
           <View testID="ingredientsList">
@@ -99,7 +95,6 @@ export default function RecipeDetailScreen(props) {
           </View>
         </View>
 
-        {/* Instructions */}
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Instructions</Text>
           <Text style={styles.instructionsText}>

@@ -28,7 +28,6 @@ import {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {/* Add "My Food" category */}
           <TouchableOpacity
             onPress={() => navigation.navigate("MyFood")} // Navigate to "MyFood" screen
             style={styles.categoryContainer}

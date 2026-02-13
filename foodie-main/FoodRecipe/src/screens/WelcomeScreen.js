@@ -33,7 +33,6 @@ export default function WelcomeScreen() {
     <View style={styles.container}>
       <StatusBar style="light" />
 
-      {/* logo image with rings */}
       <Animated.View style={[styles.ring, { padding: ring2padding }]}>
         <Animated.View style={[styles.ring, { padding: ring1padding }]}>
           <Image
@@ -45,7 +44,6 @@ export default function WelcomeScreen() {
         </Animated.View>
       </Animated.View>
 
-      {/* title and punchline */}
       <View style={styles.textContainer}>
         <Text style={styles.title}>Foodie!</Text>
         <Text style={styles.subtitle}>your food recipe app</Text>

@@ -49,7 +49,6 @@ export default function CustomRecipesScreen() {
       contentContainerStyle={styles.scrollContent}
       testID="scrollContent"
     >
-      {/* Recipe Image */}
       <View style={styles.imageContainer} testID="imageContainer">
         {recipe.image && (
           <Image
@@ -62,7 +61,6 @@ export default function CustomRecipesScreen() {
         )}
       </View>
 
-      {/* Top Buttons */}
       <View style={styles.topButtonsContainer} testID="topButtonsContainer">
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -78,7 +76,6 @@ export default function CustomRecipesScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Recipe Details */}
       <View style={styles.contentContainer} testID="contentContainer">
         <Text style={styles.recipeTitle}>{recipe.title}</Text>
         <View style={styles.sectionContainer}>
