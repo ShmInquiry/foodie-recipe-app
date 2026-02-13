@@ -3,7 +3,6 @@
     "name": "recipeApplication",
     "slug": "recipeApplication",
     "version": "1.0.0",
-    "sdkVersion": "49.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +22,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "assetBundlePatterns": ["**/*"]
+    }
   }
 }
