@@ -34,14 +34,12 @@ export default function WelcomeScreen() {
       <StatusBar style="light" />
 
       {/* logo image with rings */}
-      <Animated.View
-        style={[styles.ring, { padding: ring2padding }]}
-      >
-        <Animated.View
-          style={[styles.ring, { padding: ring1padding }]}
-        >
+      <Animated.View style={[styles.ring, { padding: ring2padding }]}>
+        <Animated.View style={[styles.ring, { padding: ring1padding }]}>
           <Image
-            source={{uri:'https://cdn.pixabay.com/photo/2024/08/29/02/47/italian-9005494_1280.png'}}
+            source={{
+              uri: "https://cdn.pixabay.com/photo/2024/08/29/02/47/italian-9005494_1280.png",
+            }}
             style={styles.logo}
           />
         </Animated.View>
@@ -49,7 +47,7 @@ export default function WelcomeScreen() {
 
       {/* title and punchline */}
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Foodie</Text>
+        <Text style={styles.title}>Foodie!</Text>
         <Text style={styles.subtitle}>your food recipe app</Text>
       </View>
     </View>
