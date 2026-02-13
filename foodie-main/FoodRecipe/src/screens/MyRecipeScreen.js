@@ -14,6 +14,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function MyRecipeScreen() {
   const navigation = useNavigation();
@@ -21,21 +22,27 @@ export default function MyRecipeScreen() {
   const [loading, setLoading] = useState(true);
 
   // Fetch recipes from AsyncStorage
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const storedRecipes = await AsyncStorage.getItem("customrecipes");
-        if (storedRecipes) {
-          setRecipes(JSON.parse(storedRecipes));
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchRecipes = async () => {
+        try {
+          const storedRecipes = await AsyncStorage.getItem("customrecipes");
+          if (storedRecipes) {
+            setRecipes(JSON.parse(storedRecipes));
+          } else {
+            setRecipes([]); // explicitly set empty if none
+          }
+        } catch (error) {
+          console.error("Error fetching recipes:", error);
+          setRecipes([]);
+        } finally {
+          setLoading(false);
         }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching recipes:", error);
-        setLoading(false);
-      }
-    };
-    fetchRecipes();
-  }, []);
+      };
+
+      fetchRecipes();
+    }, [])
+  );
 
   // Navigate to add recipe form
   const handleAddRecipe = () => {
@@ -81,6 +88,12 @@ export default function MyRecipeScreen() {
   if (recipes.length === 0) {
     return (
       <View style={styles.emptyContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Text style={styles.backButtonText}>Go Back</Text>
+        </TouchableOpacity>
         <Text style={styles.emptyText}>No recipes added yet!</Text>
         <TouchableOpacity style={styles.addButton} onPress={handleAddRecipe}>
           <Text style={styles.addButtonText}>Add Recipe</Text>
@@ -93,6 +106,12 @@ export default function MyRecipeScreen() {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       {recipes.map((recipe, index) => (
         <View key={index} style={styles.recipeCard}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Text style={styles.backButtonText}>Go Back</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => handleRecipeClick(recipe)}>
             {recipe.image ? (
               <Image
@@ -241,5 +260,15 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  backButton: {
+    padding: 8,
+    borderRadius: 50,
+    marginLeft: wp(4),
+    backgroundColor: "white",
+  },
+  backButtonText: {
+    color: "#000",
+    fontWeight: "bold",
   },
 });

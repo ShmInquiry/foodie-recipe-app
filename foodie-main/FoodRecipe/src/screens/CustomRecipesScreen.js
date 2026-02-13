@@ -162,4 +162,14 @@ const styles = StyleSheet.create({
     fontSize: hp(1.6),
     color: "#4B5563",
   },
+  backButton: {
+    padding: 8,
+    borderRadius: 50,
+    marginLeft: wp(4),
+    backgroundColor: "white",
+  },
+  backButtonText: {
+    color: "#000",
+    fontWeight: "bold",
+  },
 });
