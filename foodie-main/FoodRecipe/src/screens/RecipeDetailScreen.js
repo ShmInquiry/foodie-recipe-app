@@ -82,6 +82,7 @@ export default function RecipeDetailScreen(props) {
           <Text>⏱️ 30 mins</Text>
           <Text>🍽️ 4 servings</Text>
           <Text>🔥 250 cal</Text>
+          <Text>Difficulty: medium difficulty</Text>
         </View>
 
         {/* Ingredients */}
